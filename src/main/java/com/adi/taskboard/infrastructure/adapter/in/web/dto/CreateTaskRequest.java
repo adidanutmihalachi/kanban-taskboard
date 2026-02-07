@@ -1,16 +1,20 @@
 package com.adi.taskboard.infrastructure.adapter.in.web.dto;
 
+import com.adi.taskboard.domain.model.Priority;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class CreateBoardRequest {
+public class CreateTaskRequest {
 
     @NotBlank(message = "Title is required")
-    @Size(max = 100, message = "Title must be less than 100 characters")
     private String title;
 
-    @Size(max = 500, message = "Description must be less than 500 characters")
     private String description;
+
+    @NotNull(message = "Column ID is required")
+    private Long columnId;
+
+    private Priority priority;
 }
