@@ -1,0 +1,16 @@
+spring:
+  application:
+    name:
+      taskboard
+  datasource:
+    url: jdbc:postgresql://43j6iy.h.filess.io:5434/kanbantaskboard_tightmudmy
+    username: kanbantaskboard_tightmudmy
+    password: 97a105707ce04d0520ab19696d8b38bfe7528213
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
