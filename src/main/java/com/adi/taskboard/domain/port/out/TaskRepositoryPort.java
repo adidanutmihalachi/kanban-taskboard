@@ -6,6 +6,6 @@ import java.util.Optional;
 
 public interface TaskRepositoryPort {
     Task save(Task task);
-    Optional<Task> findById(Integer id);
-    void deleteById(Integer id);
+    Optional<Task> findById(Long id);
+    void deleteById(Long id);
 }

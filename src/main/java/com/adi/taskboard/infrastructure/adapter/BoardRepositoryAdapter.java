@@ -1,8 +1,8 @@
-package com.adi.taskboard.infrastructure.adapter.out.persistence;
+package com.adi.taskboard.infrastructure.adapter;
 
 import com.adi.taskboard.domain.model.Board;
 import com.adi.taskboard.domain.port.out.BoardRepositoryPort;
-import com.adi.taskboard.infrastructure.adapter.out.persistence.mapper.BoardMapper;
+import com.adi.taskboard.infrastructure.adapter.out.persistence.mapper.BoardPersistenceMapper;
 import com.adi.taskboard.infrastructure.adapter.out.persistence.repository.BoardJpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -14,21 +14,20 @@ import java.util.Optional;
 public class BoardRepositoryAdapter implements BoardRepositoryPort {
 
     private final BoardJpaRepository boardJpaRepository;
-
-    private final BoardMapper boardMapper;
+    private final BoardPersistenceMapper boardPersistenceMapper;
 
 
     @Override
     public Board save(Board board) {
-        var entity = boardMapper.toEntity(board);
+        var entity = boardPersistenceMapper.toEntity(board);
         var savedEntity = boardJpaRepository.save(entity);
-        return boardMapper.toDomain(savedEntity);
+        return boardPersistenceMapper.toDomain(savedEntity);
     }
 
     @Override
     public Optional<Board> findById(Long id) {
         return boardJpaRepository.findById(id)
-                .map(boardMapper::toDomain);
+                .map(boardPersistenceMapper::toDomain);
     }
 
     @Override
