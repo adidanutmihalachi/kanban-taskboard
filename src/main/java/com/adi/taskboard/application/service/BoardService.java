@@ -31,3 +31,4 @@ public class BoardService implements CreateBoardUseCase, GetBoardUseCase {
                 .orElseThrow(() -> new RuntimeException("Board not found"));
     }
 }
+
