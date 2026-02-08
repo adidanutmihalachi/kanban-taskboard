@@ -2,9 +2,9 @@ spring:
   application:
     name: taskboard
   datasource:
-    url: jdbc:postgresql://43j6iy.h.filess.io:5434/kanbantaskboard_tightmudmy
-    username: kanbantaskboard_tightmudmy
-    password: 97a105707ce04d0520ab19696d8b38bfe7528213
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/taskboard}
+    username: ${SPRING_DATASOURCE_USERNAME:taskboard}
+    password: ${SPRING_DATASOURCE_PASSWORD:taskboard}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -14,7 +14,6 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
-# Swagger/OpenAPI Configuration
 springdoc:
   api-docs:
     path: /api-docs
