@@ -3,8 +3,8 @@ spring:
     name: taskboard
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://postgres:5432/taskboard}
-    username: ${SPRING_DATASOURCE_USERNAME:taskboard_user}
-    password: ${SPRING_DATASOURCE_PASSWORD:s3cr3t}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
