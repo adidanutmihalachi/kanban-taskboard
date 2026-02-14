@@ -1,4 +1,4 @@
-FROM maven:3.10.1-eclipse-temurin-21 AS builder
+FROM maven:3.9-eclipse-temurin-21 AS builder
 WORKDIR /workspace
 COPY mvnw ./
 COPY .mvn .mvn
@@ -12,6 +12,5 @@ FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=builder /workspace/target/taskboard-0.0.1-SNAPSHOT.jar ./taskboard.jar
 EXPOSE 8080
-ENV SPRING_PROFILES_ACTIVE=docker
-ENTRYPOINT ["java","-jar","/app/taskboard.jar"]
-
+ENV SPRING_PROFILES_ACTIVE=dev
+ENTRYPOINT ["java", "-jar", "/app/taskboard.jar"]

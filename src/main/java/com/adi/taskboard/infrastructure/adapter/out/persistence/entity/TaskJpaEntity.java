@@ -28,8 +28,8 @@ public class TaskJpaEntity {
     private Integer position;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private PriorityJpa priority;
+    @Column(nullable = false, columnDefinition = "varchar(255)")
+    private PriorityJpaEntity priority;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "column_id", nullable = false)
