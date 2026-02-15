@@ -2,7 +2,7 @@ package com.adi.taskboard.infrastructure.adapter.out.persistence.mapper;
 
 import com.adi.taskboard.domain.model.Priority;
 import com.adi.taskboard.domain.model.Task;
-import com.adi.taskboard.infrastructure.adapter.out.persistence.entity.PriorityJpa;
+import com.adi.taskboard.infrastructure.adapter.out.persistence.entity.PriorityJpaEntity;
 import com.adi.taskboard.infrastructure.adapter.out.persistence.entity.TaskJpaEntity;
 import org.springframework.stereotype.Component;
 
@@ -37,13 +37,13 @@ public class TaskPersistenceMapper {
                 .build();
     }
 
-    private PriorityJpa toPriorityJpa(Priority priority) {
-        if (priority == null) return PriorityJpa.MEDIUM;
-        return PriorityJpa.valueOf(priority.name());
+    private PriorityJpaEntity toPriorityJpa(Priority priority) {
+        if (priority == null) return PriorityJpaEntity.MEDIUM;
+        return PriorityJpaEntity.valueOf(priority.name());
     }
 
-    private Priority toPriorityDomain(PriorityJpa priorityJpa) {
-        if (priorityJpa == null) return Priority.MEDIUM;
-        return Priority.valueOf(priorityJpa.name());
+    private Priority toPriorityDomain(PriorityJpaEntity priorityJpaEntity) {
+        if (priorityJpaEntity == null) return Priority.MEDIUM;
+        return Priority.valueOf(priorityJpaEntity.name());
     }
 }

@@ -1,0 +1,62 @@
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: taskboard
+      POSTGRES_USER: taskboard_user
+      POSTGRES_PASSWORD: s3cr3t
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U taskboard_user -d taskboard"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  sonarqube:
+    image: sonarqube:community
+    ports:
+      - "9000:9000"
+    environment:
+      SONARQUBE_JDBC_URL: jdbc:postgresql://postgres:5432/sonarqube
+      SONARQUBE_JDBC_USERNAME: sonarqube
+      SONARQUBE_JDBC_PASSWORD: sonarqube
+      SONAR_ES_BOOTSTRAP_CHECKS_DISABLE: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - sonar-data:/opt/sonarqube/data
+      - sonar-logs:/opt/sonarqube/logs
+      - sonar-extensions:/opt/sonarqube/extensions
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+  taskboard:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/taskboard
+      SPRING_DATASOURCE_USERNAME: taskboard_user
+      SPRING_DATASOURCE_PASSWORD: s3cr3t
+      SPRING_PROFILES_ACTIVE: dev
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: on-failure
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+volumes:
+  postgres-data:
+  sonar-data:
+  sonar-logs:
+  sonar-extensions:
